@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Agent 调度中心</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 4v24M4 16h24M8 8l16 16M24 8L8 24"/></svg></span>
+      <div><strong>Agent 调度中心</strong><span>MISSION CONTROL</span></div>
+    </div>
+    <section class="roster" aria-labelledby="team-heading">
+      <h2 id="team-heading" class="eyebrow">Agent 队列</h2>
+      <ul id="roster"></ul>
+    </section>
+    <section class="history" aria-labelledby="history-heading">
+      <h2 id="history-heading" class="eyebrow">运行记录</h2>
+      <ul id="history"><li class="muted">暂无运行记录</li></ul>
+    </section>
+    <div class="sidebar-foot"><span class="dot"></span><span>本机工作区</span></div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <span class="eyebrow">工作区 / 项目调度</span>
+      <span id="connection" class="connection"><span class="dot"></span> 正在连接</span>
+    </header>
+
+    <div class="content">
+      <div class="hero">
+        <p class="eyebrow accent">多 Agent 协作</p>
+        <h1>项目调度</h1>
+        <p>把目标交给 Claude。它会分配任务，让多个 Agent 同时工作，再汇总交付结果。</p>
+      </div>
+
+      <ol class="pipeline" aria-label="执行流程">
+        <li data-phase="planning"><span>01</span><div><strong>拆解</strong><small>Claude 拟定分工</small></div></li>
+        <li data-phase="executing"><span>02</span><div><strong>并行执行</strong><small>Agent 独立工作</small></div></li>
+        <li data-phase="integrating"><span>03</span><div><strong>合并预览</strong><small>核对改动与冲突</small></div></li>
+        <li data-phase="summarizing"><span>04</span><div><strong>汇总</strong><small>Claude 整理交付</small></div></li>
+      </ol>
+
+      <div class="workbench">
+        <section class="panel compose" aria-labelledby="new-heading">
+          <div class="panel-head"><div><p class="eyebrow accent">项目配置</p><h2 id="new-heading">新建运行</h2></div></div>
+          <form id="create">
+            <fieldset class="mode-picker">
+              <legend class="sr-only">运行模式</legend>
+              <label><input type="radio" name="mode" value="demo" checked><span>演示模式</span></label>
+              <label><input type="radio" name="mode" value="live"><span>真实运行</span></label>
+            </fieldset>
+            <p class="mode-note muted" id="mode-note">模拟整个协作流程，无需账号或 API 密钥。</p>
+            <label class="field">项目名称<input name="title" maxlength="100" required value="协作项目演示"></label>
+            <label class="field">任务目标<textarea name="brief" rows="3" maxlength="8000" required>为一个新项目准备实施方案、交互说明、验证清单和交接文档。</textarea></label>
+            <label id="repo-field" class="field" hidden>Git 仓库路径 <span class="muted">（可选）</span>
+              <input name="repo" placeholder="/Users/你/Projects/my-project">
+              <small>留空时创建空白项目。现有仓库从已提交的 HEAD 复制。</small>
+            </label>
+            <fieldset class="worker-picker"><legend>执行 Agent</legend><div id="workers"></div></fieldset>
+            <p id="form-error" class="error" role="alert" hidden></p>
+            <button type="submit" class="primary" id="start"><span aria-hidden="true">▶</span> 运行演示</button>
+          </form>
+        </section>
+
+        <section class="panel activity" aria-labelledby="activity-heading">
+          <div class="panel-head"><div><p class="eyebrow accent">任务与交付</p><h2 id="activity-heading">运行面板</h2></div><span id="job-badge" class="badge" hidden></span></div>
+          <div id="run-content">
+            <div class="empty">
+              <span class="empty-icon" aria-hidden="true"><svg viewBox="0 0 64 64"><rect x="25" y="4" width="14" height="14" rx="3"/><path d="M32 18v13M13 40v-9h38v9M32 31v9"/><rect x="6" y="40" width="14" height="14" rx="3"/><rect x="25" y="40" width="14" height="14" rx="3"/><rect x="44" y="40" width="14" height="14" rx="3"/></svg></span>
+              <h3>等待项目启动</h3>
+              <p>启动后，这里会显示 Claude 的分工、每个 Agent 的进度，以及可下载的补丁。</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
