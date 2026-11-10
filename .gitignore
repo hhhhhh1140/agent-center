@@ -1,0 +1,13 @@
+# Local run history, repositories and logs
+.runs/
+*.log
+
+# Credentials and local configuration
+.env
+.env.*
+
+# Python and macOS generated files
+__pycache__/
+*.py[cod]
+.DS_Store
+._*
